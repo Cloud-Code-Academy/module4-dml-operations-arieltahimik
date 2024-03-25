@@ -153,8 +153,15 @@ public with sharing class DMLOperations {
             // Set the Opportunity's Stage to Qualification
             // Set the Opportunity's Close Date to 3 months from today
             // Set the Opportunity's Amount to 50000
-
+        List<Opportunity> oppsList = new List<Opportunity>();
+        for (Opportunity opp : opportunities) {
+            opp.StageName = 'Qualification';
+            opp.CloseDate = Date.today().addMonths(3);
+            opp.Amount = 50000;
+            oppsList.add(opp);
+        }
         // Upsert the Opportunity
+        upsert oppsList;
     }
 
     /**
