@@ -260,11 +260,22 @@ public with sharing class DMLOperations {
      * @param leadNames The list of Lead names to be inserted.
      */
     public static void insertAndDeleteLeads(List<String> leadNames) {
+        List<Lead> leadList = new List<Lead>();        
+
         // Loop through each Lead name
+        for (String leadName : leadNames) {
+            Lead newLead = new Lead();
+            //Lead requires LastName & Company
+            newLead.LastName = leadName;
+            newLead.Company = 'Test Lead Company';
+            leadList.add(newLead);
+        }
 
         // Insert the Leads
+        insert leadList;
 
         // Delete the Leads
+        delete leadList;
     }
 
 
