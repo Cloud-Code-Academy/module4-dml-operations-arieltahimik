@@ -287,7 +287,15 @@ public with sharing class DMLOperations {
      */
     public static void createAndDeleteCases(String accountId, Integer numOfCases) {
         // Insert the cases
+        List<Case> caseList = new List<Case>();
+        for (Integer i=0; i<numOfCases; i++) {
+            Case c = new Case();
+            c.Origin = 'Web';            
+            caseList.add(c);
+        }
+        insert caseList;
 
         // Delete the cases
+        delete caseList;
     }
 }
