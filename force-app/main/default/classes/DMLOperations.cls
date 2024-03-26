@@ -204,12 +204,23 @@ public with sharing class DMLOperations {
 		// Query for the Account
 		List<Account> accounts = [SELECT Id FROM Account WHERE Name = :accountName];
 
+        Account acc = new Account();
+        
 		// if the Account exists, update the description
-
-		// otherwise, create a new Account and set the description
+        if (!accounts.isEmpty()) {
+            acc = accounts[0];
+            acc.Name = accountName;
+            acc.Description = 'Updated Account';
+        } else {
+            // otherwise, create a new Account and set the description
+            acc.Name = accountName;
+            acc.Description = 'New Account';
+        }
 
 		// Upsert the Account
-		return null;
+        upsert acc;
+        
+		return acc;
 	}
 
     /**
