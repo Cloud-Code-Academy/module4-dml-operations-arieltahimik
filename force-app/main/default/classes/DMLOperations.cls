@@ -233,15 +233,25 @@ public with sharing class DMLOperations {
 	 * @param contactsToUpsert List of Contacts to be upserted and linked to accounts.
 	 */
 	public static void upsertAccountsWithContacts(List<Contact> contactsToUpsert) {
+        List<Contact> contacts = new List<Contact>();
+        Account acc = new Account();        
+
 		// Loop through each Contact
+        for (Contact con : contactsToUpsert) {
 
-		// Extract the Account Name from Contact's LastName
+            // Extract the Account Name from Contact's LastName
+            acc.Name = con.Account.Name;
 
-		// Get the account based on the name or create one if it doesn't exist
-
-		// Link the Contact to its Account using the Account Id
-
-		// Upsert the Contacts
+            // Get the account based on the name or create one if it doesn't exist
+            if(acc.Name == null) {
+                upsertAccount(con.LastName);
+            } else {
+                // Link the Contact to its Account using the Account Id
+                con.AccountId = acc.Id;
+            }
+        }
+        // Upsert the Contacts
+        upsert contacts;
 	}
 
     /**
