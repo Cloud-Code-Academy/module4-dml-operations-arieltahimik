@@ -245,11 +245,12 @@ public with sharing class DMLOperations {
             // Get the account based on the name or create one if it doesn't exist
             if(acc.Name == null) {
                 upsertAccount(con.LastName);
-            } else {
-                // Link the Contact to its Account using the Account Id
-                con.AccountId = acc.Id;
             }
+            
+            // Link the Contact to its Account using the Account Id
+            con.AccountId = acc.Id;            
         }
+        
         // Upsert the Contacts
         upsert contacts;
 	}
@@ -290,7 +291,8 @@ public with sharing class DMLOperations {
         List<Case> caseList = new List<Case>();
         for (Integer i=0; i<numOfCases; i++) {
             Case c = new Case();
-            c.Origin = 'Web';            
+            c.Origin = 'Web';
+            c.AccountId = accountId;
             caseList.add(c);
         }
         insert caseList;
