@@ -244,14 +244,16 @@ public with sharing class DMLOperations {
 
             // Get the account based on the name or create one if it doesn't exist
             if(acc.Name == null) {
-                upsertAccount(con.LastName);
+                acc = upsertAccount(con.LastName);
             }
             
             // Link the Contact to its Account using the Account Id
-            con.AccountId = acc.Id;            
+            con.AccountId = acc.Id;         
+            contacts.add(con);
         }
         
         // Upsert the Contacts
+        system.debug(contacts);
         upsert contacts;
 	}
 
