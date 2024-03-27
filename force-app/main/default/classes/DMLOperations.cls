@@ -253,7 +253,6 @@ public with sharing class DMLOperations {
         }
         
         // Upsert the Contacts
-        system.debug(contacts);
         upsert contacts;
 	}
 
