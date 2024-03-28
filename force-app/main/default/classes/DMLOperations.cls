@@ -153,15 +153,23 @@ public with sharing class DMLOperations {
             // Set the Opportunity's Stage to Qualification
             // Set the Opportunity's Close Date to 3 months from today
             // Set the Opportunity's Amount to 50000
-        List<Opportunity> oppsList = new List<Opportunity>();
+            
+            /*List<Opportunity> oppsList = new List<Opportunity>();
+              So here I don't have to create a new List.
+              Updating `opp` will update `opportunities` List.
+              I can just `upsert opportunities` after.
+            */
+        
         for (Opportunity opp : opportunities) {
             opp.StageName = 'Qualification';
             opp.CloseDate = Date.today().addMonths(3);
             opp.Amount = 50000;
-            oppsList.add(opp);
-        }
+            //oppsList.add(opp);  // no need for this
+        }        
+        
         // Upsert the Opportunity
-        upsert oppsList;
+        //upsert oppsList;  // no need for this
+        upsert opportunities;
     }
 
     /**
